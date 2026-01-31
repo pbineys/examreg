@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Student Cass Portal</title>
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --primary-hover: #0056b3;
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-color: #333;
+            --border-color: #ced4da;
+            --error-bg: #f8d7da;
+            --error-color: #721c24;
+            --error-border: #f5c6cb;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Center vertically */
+            padding: 20px;
+        }
+
+        .header-flex {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 0;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            height: 50px;
+            margin-right: 15px;
+        }
+
+        .portal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0;
+            color: var(--text-color);
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 40px;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .login-container h2, .login-container h4 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--text-color);
+            font-weight: 600;
+            margin-top: 0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        .form-control:focus {
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.2s;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .alert {
+            display: none; /* Hidden by default */
+            color: var(--error-color);
+            background-color: var(--error-bg);
+            border: 1px solid var(--error-border);
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .forgot-password-link {
+            display: block;
+            text-align: right;
+            margin-top: 8px;
+            font-size: 0.9rem;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .forgot-password-link:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #777;
+            font-size: 0.9rem;
+            margin-top: auto;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header-flex">
+        <img src="../terp/Student/images/bineys_logo_round.png" alt="Bineys Logo" class="logo">
+        <p class="portal-title">Bineys-GH Student Cass Portal</p>
+    </div>
+
+    <div class="main-content">
+        <div class="login-container">
+            <h4>Login To Start</h4>
+            
+            <div id="error-message" class="alert"></div>
+
+            <form id="loginForm" action="Student/Index.html" method="get" onsubmit="return validateForm(event)">
+                <input id="submitType" name="submitType" type="hidden" value="login">
+                
+                <div class="form-group">
+                    <label for="username">User ID</label>
+                    <input autocomplete="off" id="username" name="username" type="text" class="form-control" placeholder="Enter your User ID">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input autocomplete="off" id="password" name="password" type="password" class="form-control" placeholder="Enter your Password">
+                    <a href="#" class="forgot-password-link" id="forgotPasswordLink">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="btn">Login</button>
+            </form>
+        </div>
+    </div>
+
+     <footer>
+        <div class="container">
+            <p>&copy; 2026 - Bineys</p>
+            <p>Disclaimer: This page is for testing purposes only. No real data is processed.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Handle Forgot Password Click
+        document.getElementById('forgotPasswordLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            // Validate only username for reset? 
+            // Original code called validateForm(), which only checked username.
+            if (validateForm(e, 'reset')) {
+                document.getElementById('submitType').value = 'reset';
+                document.getElementById('loginForm').submit();
+            }
+        });
+
+        function validateForm(event, mode = 'login') {
+            const usernameInput = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
+            const errorDiv = document.getElementById('error-message');
+            
+            // Reset error
+            errorDiv.style.display = 'none';
+            errorDiv.textContent = '';
+
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value.trim();
+
+            if (!username) {
+                showError("Please enter your User ID.");
+                usernameInput.focus();
+                if (event) event.preventDefault();
+                return false;
+            }
+
+            // Expected Credentials
+            const validUsername = '0x0123x4';
+            const validPassword = '87654321';
+
+            if (mode === 'login') {
+                if (username === validUsername && password === validPassword) {
+                    // Correct credentials
+                    return true;
+                } else {
+                    showError("Invalid User ID or Password.");
+                    if (event) event.preventDefault();
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        function showError(msg) {
+            const errorDiv = document.getElementById('error-message');
+            errorDiv.textContent = msg;
+            errorDiv.style.display = 'block';
+        }
+    </script>
+</body>
+
+</html>

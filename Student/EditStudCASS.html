@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Student Cass Scores - Student Registration Portal</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --primary-hover: #0056b3;
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-color: #333;
+            --secondary-text: #6c757d;
+            --border-color: #e2e8f0;
+            --navbar-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background-color: var(--navbar-bg);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            padding: 1rem 1.5rem;
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+            color: var(--primary-color) !important;
+        }
+
+        /* Header Info Section */
+        .site-header {
+            background-color: var(--card-bg);
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 30px;
+        }
+
+        .site-header h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 10px;
+        }
+
+        .school-info .school-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .school-info h5 {
+            color: var(--secondary-text);
+            font-size: 0.9rem;
+            margin-bottom: 0;
+            font-weight: 400;
+        }
+
+        /* Cards and Form Styling */
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+        }
+
+        .card-header {
+            background-color: #fff;
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 20px;
+            font-weight: 600;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .student-badge {
+            background: #fff;
+            padding: 15px 20px;
+            border-radius: 12px;
+            border-left: 5px solid var(--primary-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+        }
+
+        .student-badge h5 {
+            margin: 0;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .student-badge p {
+            margin: 0;
+            color: var(--secondary-text);
+            font-size: 0.9rem;
+        }
+
+        .table thead th {
+            background-color: #f8f9fa;
+            border-bottom: 2px solid var(--border-color);
+            color: var(--secondary-text);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 15px;
+        }
+
+        .table tbody td {
+            padding: 15px;
+            vertical-align: middle;
+        }
+
+        .score-input {
+            max-width: 100px;
+            font-weight: 700;
+            text-align: center;
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .score-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.1);
+        }
+
+        .btn-save {
+            padding: 10px 30px;
+            font-weight: 600;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: auto;
+            background-color: #fff;
+            padding: 15px 0;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            color: var(--secondary-text);
+            font-size: 0.85rem;
+        }
+
+        .bg-score-label {
+            background-color: #eef2ff;
+            color: #4338ca;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="Index.html">Student Registration Portal</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link fw-medium" href="Index.html">Students</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-medium" href="#" id="enrollmentDropdown" role="button" data-bs-toggle="dropdown">
+                            Enrollment
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="New.html">Add Student</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="handleEnterCass(); return false;">Enter Cass</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-medium" href="#" id="reportsDropdown" role="button" data-bs-toggle="dropdown">
+                            Reports
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="StudEntryReport.html">Entry Report</a></li>
+                            <li><a class="dropdown-item" href="DuplicatesEntryReport.html">Duplicate Entry Report</a></li>
+                            <li><a class="dropdown-item" href="StudPhotoReport.html">Photo Album</a></li>
+                            <li><a class="dropdown-item" href="SubjectsDetailsReport.html">Subject Details</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-medium" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown">
+                            School Admin
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="../login.html">Sign Out</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <h3>BASIC EDUCATION CERTIFICATE EXAMINATION, SC - 2026</h3>
+            <div class="school-info">
+                <p class="school-name">TEST SCHOOL NAME</p>
+                <h5>Centre: TEST CENTRE NAME</h5>
+            </div>
+        </div>
+    </header>
+
+    <div class="container body-content pb-5">
+        
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h4 class="mb-0 fw-bold">Edit Cass Scores</h4>
+            <a href="../Student/Index.html" class="btn btn-outline-secondary btn-sm">
+                <i class="bi bi-arrow-left"></i> Back to Details
+            </a>
+        </div>
+
+        <div class="student-badge">
+            <div class="row align-items-center">
+                <div class="col">
+                    <p class="text-uppercase small fw-bold mb-1">Editing Scores For:</p>
+                    <h5>TEST STUDENT NAME</h5>
+                    <p>Student Code: <span class="text-primary fw-bold">56X0038505</span></p>
+                </div>
+                <div class="col-auto">
+                    <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                        <i class="bi bi-pencil-fill fs-4"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <form action="../Student/StudCASS.html" method="get" novalidate="novalidate">
+            <input data-val="true" data-val-number="The field StudentId must be a number." data-val-required="The StudentId field is required." id="StudentId" name="StudentId" type="hidden" value="">
+            <input id="StudentCode" name="StudentCode" type="hidden" value="">
+            <input id="FullName" name="FullName" type="hidden" value="TEST STUDENT NAME">
+            <input id="ProgrammeName" name="ProgrammeName" type="hidden" value="">
+
+            <div class="card">
+                <div class="card-header">
+                    <i class="bi bi-table"></i> Subject-wise Score Entry
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th style="width: 40%">Subject Name</th>
+                                    <th class="text-center">Year 1 Cass</th>
+                                    <th class="text-center">Year 2 Cass</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Subject 0 -->
+                                <tr>
+                                    <td class="fw-bold">
+                                        ENGLISH LANGUAGE
+                                        <input id="Subjects_0__SubjectCode" name="Subjects[0].SubjectCode" type="hidden" value="001">
+                                        <input id="Subjects_0__SubjectName" name="Subjects[0].SubjectName" type="hidden" value="ENGLISH LANGUAGE">
+                                    </td>
+                                    <td>
+                                        <div class="d-flex flex-column align-items-center">
+                                            <input class="form-control score-input" data-val="true" data-val-regex="Enter a whole number between 0 and 100" data-val-regex-pattern="^0*(100|[0-9][0-9]?)$" data-val-required="Enter Year 1 Cass Score" id="Subjects_0__Year1CassScore" name="Subjects[0].Year1CassScore" placeholder="000" type="number" min="0" max="100" value="" required>
+                                            <span class="field-validation-valid text-danger small mt-1" data-valmsg-for="Subjects[0].Year1CassScore" data-valmsg-replace="true"></span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex flex-column align-items-center">
+                                            <input class="form-control score-input text-primary border-primary" data-val="true" data-val-regex="Enter a whole number between 0 and 100" data-val-regex-pattern="^0*(100|[0-9][0-9]?)$" data-val-required="Enter Year 2 Cass Score" id="Subjects_0__Year2CassScore" name="Subjects[0].Year2CassScore" placeholder="000" type="number" min="0" max="100" value="" required>
+                                            <span class="field-validation-valid text-danger small mt-1" data-valmsg-for="Subjects[0].Year2CassScore" data-valmsg-replace="true"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- Subject 1 -->
+                                <tr>
+                                    <td class="fw-bold">
+                                        FANTE
+                                        <input id="Subjects_1__SubjectCode" name="Subjects[1].SubjectCode" type="hidden" value="007">
+                                        <input id="Subjects_1__SubjectName" name="Subjects[1].SubjectName" type="hidden" value="FANTE">
+                                    </td>
+                                    <td>
+                                        <div class="d-flex flex-column align-items-center">
+                                            <input class="form-control score-input" data-val="true" data-val-regex="Enter a whole number between 1 and 100" data-val-regex-pattern="^0*(100|[1-9][0-9]|[1-9])$" data-val-required="Enter Year 1 Cass Score" id="Subjects_1__Year1CassScore" name="Subjects[1].Year1CassScore" placeholder="000" type="number" min="1" max="100" value="">
+                                            <span class="field-validation-valid text-danger small mt-1" data-valmsg-for="Subjects[1].Year1CassScore" data-valmsg-replace="true"></span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex flex-column align-items-center">
+                                            <input class="form-control score-input text-primary border-primary" data-val="true" data-val-regex="Enter a whole number between 1 and 100" data-val-regex-pattern="^0*(100|[1-9][0-9]|[1-9])$" data-val-required="Enter Year 2 Cass Score" id="Subjects_1__Year2CassScore" name="Subjects[1].Year2CassScore" placeholder="000" type="number" min="1" max="100" value="">
+                                            <span class="field-validation-valid text-danger small mt-1" data-valmsg-for="Subjects[1].Year2CassScore" data-valmsg-replace="true"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- Subject 2 -->
+                                <tr>
+                                    <td class="fw-bold">
+                                        SOCIAL STUDIES
+                                        <input id="Subjects_2__SubjectCode" name="Subjects[2].SubjectCode" type="hidden" value="020">
+                                        <input id="Subjects_2__SubjectName" name="Subjects[2].SubjectName" type="hidden" value="SOCIAL STUDIES">
+                                    </td>
+                                    <td>
+                                        <div class="d-flex flex-column align-items-center">
+                                            <input class="form-control score-input" data-val="true" data-val-regex="Enter a whole number between 1 and 100" data-val-regex-pattern="^0*(100|[1-9][0-9]|[1-9])$" data-val-required="Enter Year 1 Cass Score" id="Subjects_2__Year1CassScore" name="Subjects[2].Year1CassScore" placeholder="000" type="number" min="1" max="100" value="">
+                                            <span class="field-validation-valid text-danger small mt-1" data-valmsg-for="Subjects[2].Year1CassScore" data-valmsg-replace="true"></span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex flex-column align-items-center">
+                                            <input class="form-control score-input text-primary border-primary" data-val="true" data-val-regex="Enter a whole number between 1 and 100" data-val-regex-pattern="^0*(100|[1-9][0-9]|[1-9])$" data-val-required="Enter Year 2 Cass Score" id="Subjects_2__Year2CassScore" name="Subjects[2].Year2CassScore" placeholder="000" type="number" min="1" max="100" value="">
+                                            <span class="field-validation-valid text-danger small mt-1" data-valmsg-for="Subjects[2].Year2CassScore" data-valmsg-replace="true"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- Subject 3 -->
+                                <tr>
+                                    <td class="fw-bold">
+                                        RELIGIOUS AND MORAL EDUCATION
+                                        <input id="Subjects_3__SubjectCode" name="Subjects[3].SubjectCode" type="hidden" value="022">
+                                        <input id="Subjects_3__SubjectName" name="Subjects[3].SubjectName" type="hidden" value="RELIGIOUS AND MORAL EDUCATION">
+                                    </td>
+                                    <td>
+                                        <div class="d-flex flex-column align-items-center">
+                                            <input class="form-control score-input" data-val="true" data-val-regex="Enter a whole number between 1 and 100" data-val-regex-pattern="^0*(100|[1-9][0-9]|[1-9])$" data-val-required="Enter Year 1 Cass Score" id="Subjects_3__Year1CassScore" name="Subjects[3].Year1CassScore" placeholder="000" type="number" min="1" max="100" value="">
+                                            <span class="field-validation-valid text-danger small mt-1" data-valmsg-for="Subjects[3].Year1CassScore" data-valmsg-replace="true"></span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex flex-column align-items-center">
+                                            <input class="form-control score-input text-primary border-primary" data-val="true" data-val-regex="Enter a whole number between 1 and 100" data-val-regex-pattern="^0*(100|[1-9][0-9]|[1-9])$" data-val-required="Enter Year 2 Cass Score" id="Subjects_3__Year2CassScore" name="Subjects[3].Year2CassScore" placeholder="000" type="number" min="1" max="100" value="">
+                                            <span class="field-validation-valid text-danger small mt-1" data-valmsg-for="Subjects[3].Year2CassScore" data-valmsg-replace="true"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- Subject 4 -->
+                                <tr>
+                                    <td class="fw-bold">
+                                        MATHEMATICS
+                                        <input id="Subjects_4__SubjectCode" name="Subjects[4].SubjectCode" type="hidden" value="030">
+                                        <input id="Subjects_4__SubjectName" name="Subjects[4].SubjectName" type="hidden" value="MATHEMATICS">
+                                    </td>
+                                    <td>
+                                        <div class="d-flex flex-column align-items-center">
+                                            <input class="form-control score-input" data-val="true" data-val-regex="Enter a whole number between 1 and 100" data-val-regex-pattern="^0*(100|[1-9][0-9]|[1-9])$" data-val-required="Enter Year 1 Cass Score" id="Subjects_4__Year1CassScore" name="Subjects[4].Year1CassScore" placeholder="000" type="number" min="1" max="100" value="">
+                                            <span class="field-validation-valid text-danger small mt-1" data-valmsg-for="Subjects[4].Year1CassScore" data-valmsg-replace="true"></span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex flex-column align-items-center">
+                                            <input class="form-control score-input text-primary border-primary" data-val="true" data-val-regex="Enter a whole number between 1 and 100" data-val-regex-pattern="^0*(100|[1-9][0-9]|[1-9])$" data-val-required="Enter Year 2 Cass Score" id="Subjects_4__Year2CassScore" name="Subjects[4].Year2CassScore" placeholder="000" type="number" min="1" max="100" value="">
+                                            <span class="field-validation-valid text-danger small mt-1" data-valmsg-for="Subjects[4].Year2CassScore" data-valmsg-replace="true"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- Subject 5 -->
+                                <tr>
+                                    <td class="fw-bold">
+                                        SCIENCE
+                                        <input id="Subjects_5__SubjectCode" name="Subjects[5].SubjectCode" type="hidden" value="034">
+                                        <input id="Subjects_5__SubjectName" name="Subjects[5].SubjectName" type="hidden" value="SCIENCE">
+                                    </td>
+                                    <td>
+                                        <div class="d-flex flex-column align-items-center">
+                                            <input class="form-control score-input" data-val="true" data-val-regex="Enter a whole number between 1 and 100" data-val-regex-pattern="^0*(100|[1-9][0-9]|[1-9])$" data-val-required="Enter Year 1 Cass Score" id="Subjects_5__Year1CassScore" name="Subjects[5].Year1CassScore" placeholder="000" type="number" min="1" max="100" value="">
+                                            <span class="field-validation-valid text-danger small mt-1" data-valmsg-for="Subjects[5].Year1CassScore" data-valmsg-replace="true"></span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex flex-column align-items-center">
+                                            <input class="form-control score-input text-primary border-primary" data-val="true" data-val-regex="Enter a whole number between 1 and 100" data-val-regex-pattern="^0*(100|[1-9][0-9]|[1-9])$" data-val-required="Enter Year 2 Cass Score" id="Subjects_5__Year2CassScore" name="Subjects[5].Year2CassScore" placeholder="000" type="number" min="1" max="100" value="">
+                                            <span class="field-validation-valid text-danger small mt-1" data-valmsg-for="Subjects[5].Year2CassScore" data-valmsg-replace="true"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- Subject 6 -->
+                                <tr>
+                                    <td class="fw-bold">
+                                        CAREER TECHNOLOGY
+                                        <input id="Subjects_6__SubjectCode" name="Subjects[6].SubjectCode" type="hidden" value="040">
+                                        <input id="Subjects_6__SubjectName" name="Subjects[6].SubjectName" type="hidden" value="CAREER TECHNOLOGY">
+                                    </td>
+                                    <td>
+                                        <div class="d-flex flex-column align-items-center">
+                                            <input class="form-control score-input" data-val="true" data-val-regex="Enter a whole number between 1 and 100" data-val-regex-pattern="^0*(100|[1-9][0-9]|[1-9])$" data-val-required="Enter Year 1 Cass Score" id="Subjects_6__Year1CassScore" name="Subjects[6].Year1CassScore" placeholder="000" type="number" min="1" max="100" value="">
+                                            <span class="field-validation-valid text-danger small mt-1" data-valmsg-for="Subjects[6].Year1CassScore" data-valmsg-replace="true"></span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex flex-column align-items-center">
+                                            <input class="form-control score-input text-primary border-primary" data-val="true" data-val-regex="Enter a whole number between 1 and 100" data-val-regex-pattern="^0*(100|[1-9][0-9]|[1-9])$" data-val-required="Enter Year 2 Cass Score" id="Subjects_6__Year2CassScore" name="Subjects[6].Year2CassScore" placeholder="000" type="number" min="1" max="100" value="">
+                                            <span class="field-validation-valid text-danger small mt-1" data-valmsg-for="Subjects[6].Year2CassScore" data-valmsg-replace="true"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- Subject 7 -->
+                                <tr>
+                                    <td class="fw-bold">
+                                        CREATIVE ART AND DESIGN
+                                        <input id="Subjects_7__SubjectCode" name="Subjects[7].SubjectCode" type="hidden" value="041">
+                                        <input id="Subjects_7__SubjectName" name="Subjects[7].SubjectName" type="hidden" value="CREATIVE ART AND DESIGN">
+                                    </td>
+                                    <td>
+                                        <div class="d-flex flex-column align-items-center">
+                                            <input class="form-control score-input" data-val="true" data-val-regex="Enter a whole number between 1 and 100" data-val-regex-pattern="^0*(100|[1-9][0-9]|[1-9])$" data-val-required="Enter Year 1 Cass Score" id="Subjects_7__Year1CassScore" name="Subjects[7].Year1CassScore" placeholder="000" type="number" min="1" max="100" value="">
+                                            <span class="field-validation-valid text-danger small mt-1" data-valmsg-for="Subjects[7].Year1CassScore" data-valmsg-replace="true"></span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex flex-column align-items-center">
+                                            <input class="form-control score-input text-primary border-primary" data-val="true" data-val-regex="Enter a whole number between 1 and 100" data-val-regex-pattern="^0*(100|[1-9][0-9]|[1-9])$" data-val-required="Enter Year 2 Cass Score" id="Subjects_7__Year2CassScore" name="Subjects[7].Year2CassScore" placeholder="000" type="number" min="1" max="100" value="">
+                                            <span class="field-validation-valid text-danger small mt-1" data-valmsg-for="Subjects[7].Year2CassScore" data-valmsg-replace="true"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- Subject 8 -->
+                                <tr>
+                                    <td class="fw-bold">
+                                        COMPUTING
+                                        <input id="Subjects_8__SubjectCode" name="Subjects[8].SubjectCode" type="hidden" value="071">
+                                        <input id="Subjects_8__SubjectName" name="Subjects[8].SubjectName" type="hidden" value="COMPUTING">
+                                    </td>
+                                    <td>
+                                        <div class="d-flex flex-column align-items-center">
+                                            <input class="form-control score-input" data-val="true" data-val-regex="Enter a whole number between 1 and 100" data-val-regex-pattern="^0*(100|[1-9][0-9]|[1-9])$" data-val-required="Enter Year 1 Cass Score" id="Subjects_8__Year1CassScore" name="Subjects[8].Year1CassScore" placeholder="000" type="number" min="1" max="100" value="">
+                                            <span class="field-validation-valid text-danger small mt-1" data-valmsg-for="Subjects[8].Year1CassScore" data-valmsg-replace="true"></span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex flex-column align-items-center">
+                                            <input class="form-control score-input text-primary border-primary" data-val="true" data-val-regex="Enter a whole number between 1 and 100" data-val-regex-pattern="^0*(100|[1-9][0-9]|[1-9])$" data-val-required="Enter Year 2 Cass Score" id="Subjects_8__Year2CassScore" name="Subjects[8].Year2CassScore" placeholder="000" type="number" min="1" max="100" value="">
+                                            <span class="field-validation-valid text-danger small mt-1" data-valmsg-for="Subjects[8].Year2CassScore" data-valmsg-replace="true"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary btn-save">
+                    <i class="bi bi-check2-circle"></i> Save Cass Scores
+                </button>
+                <a href="StudCASS.html" class="btn btn-link text-secondary">Cancel and Return</a>
+            </div>
+        </form>
+
+       <footer>
+        <div class="container">
+            <p>&copy; 2026 - Bineys</p>
+            <p>Disclaimer: This page is for testing purposes only. No real data is processed.</p>
+        </div>
+    </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="db.js"></script>
+    <script>
+        let currentStudent = null;
+
+        document.addEventListener('DOMContentLoaded', async function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const studentId = urlParams.get('id');
+
+            if (!studentId) {
+                alert('No student ID provided.');
+                window.location.href = 'Index.html';
+                return;
+            }
+
+            try {
+                currentStudent = await getStudent(studentId);
+                if (currentStudent) {
+                    // Update UI Labels
+                    document.querySelector('.student-badge h5').textContent = `${currentStudent.surname}, ${currentStudent.firstName} ${currentStudent.middleName || ''}`;
+                    document.querySelector('.text-primary.fw-bold').textContent = currentStudent.studentCode;
+                    
+                    // Populate Existing Scores
+                    if (currentStudent.scores) {
+                        for (const code in currentStudent.scores) {
+                            const y1 = document.querySelector(`input[name*="Year1CassScore"][id*="SubjectCode"][value="${code}"]`)?.closest('tr')?.querySelector('input[name*="Year1CassScore"]');
+                            const y2 = document.querySelector(`input[name*="Year2CassScore"][id*="SubjectCode"][value="${code}"]`)?.closest('tr')?.querySelector('input[name*="Year2CassScore"]');
+                            
+                            // Alternative lookup if the above is too complex:
+                            // We can just iterate over all SubjectCode inputs and match their values
+                            const subjectCodeInputs = document.querySelectorAll('input[name$=".SubjectCode"]');
+                            subjectCodeInputs.forEach(input => {
+                                if (input.value === code) {
+                                    const row = input.closest('tr');
+                                    const y1Input = row.querySelector('input[id$="__Year1CassScore"]');
+                                    const y2Input = row.querySelector('input[id$="__Year2CassScore"]');
+                                    if (y1Input) y1Input.value = currentStudent.scores[code].year1 || '';
+                                    if (y2Input) y2Input.value = currentStudent.scores[code].year2 || '';
+                                }
+                            });
+                        }
+                    }
+                } else {
+                    alert('Student not found.');
+                    window.location.href = 'Index.html';
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Error loading student data.');
+            }
+        });
+
+        // Save Scores Logic
+        document.querySelector('form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            
+            if (!currentStudent) return;
+
+            const scores = {};
+            const subjectRows = document.querySelectorAll('table tbody tr');
+            let hasError = false;
+            let errorMessage = '';
+            
+            const padScore = (val) => {
+                if (!val && val !== 0) return '';
+                return val.toString().padStart(3, '0');
+            };
+
+            subjectRows.forEach(row => {
+                if (hasError) return;
+
+                const codeInput = row.querySelector('input[id$="__SubjectCode"]');
+                const nameInput = row.querySelector('input[id$="__SubjectName"]');
+                const subjectName = nameInput ? nameInput.value : 'Subject';
+                const y1Input = row.querySelector('input[id$="__Year1CassScore"]');
+                const y2Input = row.querySelector('input[id$="__Year2CassScore"]');
+                
+                const y1Val = y1Input.value;
+                const y2Val = y2Input.value;
+
+                // 1) Check if all scores are entered
+                if (!y1Val || !y2Val) {
+                    hasError = true;
+                    errorMessage = `All scores for ${subjectName} must be entered.`;
+                    if (!y1Val) y1Input.focus();
+                    else y2Input.focus();
+                    return;
+                }
+
+                // 2) Check if scores are greater than 100
+                const y1Num = parseInt(y1Val, 10);
+                const y2Num = parseInt(y2Val, 10);
+
+                if (y1Num > 100 || y2Num > 100) {
+                    hasError = true;
+                    errorMessage = `Scores for ${subjectName} cannot be greater than 100.`;
+                    if (y1Num > 100) y1Input.focus();
+                    else y2Input.focus();
+                    return;
+                }
+                
+                if (codeInput) {
+                    scores[codeInput.value] = {
+                        year1: padScore(y1Val),
+                        year2: padScore(y2Val)
+                    };
+                }
+            });
+
+            if (hasError) {
+                alert(errorMessage);
+                return;
+            }
+
+            currentStudent.scores = scores;
+
+            try {
+                await updateStudent(currentStudent);
+                alert('Scores saved successfully!');
+                window.location.href = `StudCASS.html?id=${currentStudent.id}`;
+            } catch (err) {
+                console.error(err);
+                alert('Error saving scores.');
+            }
+        });
+    </script>
+</body>
+</html>
