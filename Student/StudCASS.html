@@ -317,18 +317,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="db.js"></script>
     <script>
-        const SUBJECTS = {
-            '001': 'ENGLISH LANGUAGE',
-            '007': 'FANTE',
-            '020': 'SOCIAL STUDIES',
-            '022': 'RELIGIOUS AND MORAL EDUCATION',
-            '030': 'MATHEMATICS',
-            '034': 'SCIENCE',
-            '040': 'CAREER TECHNOLOGY',
-            '041': 'CREATIVE ART AND DESIGN',
-            '071': 'COMPUTING'
-        };
-
         document.addEventListener('DOMContentLoaded', async function() {
             const urlParams = new URLSearchParams(window.location.search);
             const studentId = urlParams.get('id');
@@ -355,26 +343,33 @@
                     tableBody.innerHTML = '';
                     
                     const scores = student.scores || {};
+                    const studentSubjects = student.subjects || [];
                     
                     const padScore = (val) => {
                         if (!val && val !== 0) return '000';
                         return val.toString().padStart(3, '0');
                     };
 
-                    for (const code in SUBJECTS) {
-                        const subjectName = SUBJECTS[code];
-                        const scoreData = scores[code] || {};
-                        const y1 = padScore(scoreData.year1);
-                        const y2 = padScore(scoreData.year2);
+                    // Filter subjects: include if core or if selected elective
+                    for (const code in SUBJECT_MAPPING) {
+                        const subjectName = SUBJECT_MAPPING[code];
+                        const isCore = !!CORE_SUBJECTS[code];
+                        const isSelected = studentSubjects.includes(subjectName);
 
-                        const row = `
-                            <tr>
-                                <td class="fw-bold">${subjectName}</td>
-                                <td class="text-center"><span class="score-badge">${y1}</span></td>
-                                <td class="text-center"><span class="score-badge text-primary">${y2}</span></td>
-                            </tr>
-                        `;
-                        tableBody.innerHTML += row;
+                        if (isCore || isSelected) {
+                            const scoreData = scores[code] || {};
+                            const y1 = padScore(scoreData.year1);
+                            const y2 = padScore(scoreData.year2);
+
+                            const row = `
+                                <tr>
+                                    <td class="fw-bold">${subjectName}</td>
+                                    <td class="text-center"><span class="score-badge">${y1}</span></td>
+                                    <td class="text-center"><span class="score-badge text-primary">${y2}</span></td>
+                                </tr>
+                            `;
+                            tableBody.innerHTML += row;
+                        }
                     }
                 } else {
                     alert('Student not found.');
