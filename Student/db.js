@@ -95,17 +95,34 @@ async function deleteStudent(id) {
   });
 }
 
-const SUBJECT_MAPPING = {
+const CORE_SUBJECTS = {
   '001': 'ENGLISH LANGUAGE',
   '020': 'SOCIAL STUDIES',
   '022': 'RELIGIOUS AND MORAL EDUCATION',
   '030': 'MATHEMATICS',
   '034': 'SCIENCE',
   '040': 'CAREER TECHNOLOGY',
-  '041': 'CREATIVE ART AND DESIGN',
-  '050': 'FANTE',
-  '051': 'COMPUTING'
+  '041': 'CREATIVE ART AND DESIGN'
 };
+
+const ELECTIVE_SUBJECTS = {
+  '003': 'DANGME',
+  '004': 'DAGAARE',
+  '005': 'DAGBANI',
+  '006': 'EWE',
+  '007': 'FANTE',
+  '008': 'GA',
+  '009': 'GONJA',
+  '010': 'KASEM',
+  '011': 'NZEMA',
+  '012': 'AKUAPEM TWI',
+  '013': 'ASANTE TWI',
+  '002': 'FRENCH',
+  '014': 'ARABIC',
+  '071': 'COMPUTING'
+};
+
+const SUBJECT_MAPPING = { ...CORE_SUBJECTS, ...ELECTIVE_SUBJECTS };
 
 async function getFirstStudentWithNoScores() {
   const students = await getAllStudents();
