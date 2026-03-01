@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Student - Student Registration Portal</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --primary-hover: #0056b3;
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-color: #333;
+            --secondary-text: #6c757d;
+            --border-color: #e9ecef;
+            --navbar-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Navbar Styling (Consistent with other pages) */
+        .navbar {
+            background-color: var(--navbar-bg);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            padding: 1rem 1.5rem;
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+            color: var(--primary-color) !important;
+        }
+
+        .nav-link {
+            color: var(--text-color) !important;
+            font-weight: 500;
+            margin-right: 15px;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color) !important;
+        }
+
+        /* Header Info Section */
+        .site-header {
+            background-color: var(--card-bg);
+            padding: 30px 0;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 30px;
+        }
+
+        .site-header h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 15px;
+        }
+
+        .school-info .school-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .school-info h5 {
+            color: var(--secondary-text);
+            font-size: 1rem;
+            margin-bottom: 0;
+            font-weight: 400;
+        }
+
+        /* Forms & Cards */
+        .card {
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+            background-color: var(--card-bg);
+        }
+
+        .card-header {
+            background-color: transparent;
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+        }
+
+        .card-body {
+            padding: 25px;
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control, .form-select {
+            border: 1px solid #ced4da;
+            padding: 10px 12px;
+            border-radius: 6px;
+        }
+
+        .form-control:focus {
+            border-color: #80bdff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+        .section-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #495057;
+            margin-bottom: 15px;
+            margin-top: 10px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .subject-group {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #e9ecef;
+            height: 100%;
+        }
+
+        .subject-group legend {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            float: none;
+            width: auto;
+            padding: 0;
+        }
+
+        .form-check-label {
+            cursor: pointer;
+        }
+        .form-check-input {
+            width: 20px;
+            height: 20px;
+            border-radius: 5px;
+            border: 2px solid rgb(99, 169, 248);
+            transition: background-color 0.2s;
+        }
+
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .form-check-input:checked:hover {
+            background-color: var(--primary-hover);
+            border-color: var(--primary-hover);
+        }
+
+        .form-check-input:disabled {
+            background-color: var(--primary-hover);
+        }
+
+        .form-check-input:disabled:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .form-check-input:disabled:checked {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border: none;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+
+        footer {
+            margin-top: auto;
+            background-color: #fff;
+            padding: 20px 0;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            color: var(--secondary-text);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="Index.html">Student Registration Portal</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="Index.html">Students</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="enrollmentDropdown" role="button" data-bs-toggle="dropdown">
+                            Enrollment
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="New.html">Add Student</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="handleEnterCass(); return false;">Enter Cass</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="reportsDropdown" role="button" data-bs-toggle="dropdown">
+                            Reports
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="StudEntryReport.html">Entry Report</a></li>
+                            <li><a class="dropdown-item" href="DuplicatesEntryReport.html">Duplicate Entry Report</a></li>
+                            <li><a class="dropdown-item" href="StudPhotoReport.html">Photo Album</a></li>
+                            <li><a class="dropdown-item" href="SubjectsDetailsReport.html">Subject Details</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown">
+                            School Admin
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <a class="dropdown-item" href="../login.html">Sign Out</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+
+    </nav>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <h3>BASIC EDUCATION CERTIFICATE EXAMINATION, SC - 2026</h3>
+            <div class="school-info">
+                <p class="school-name">TEST SCHOOL NAME</p>
+                <h5>Centre: TEST CENTRE NAME</h5>
+            </div>
+        </div>
+    </header>
+
+    <!-- Content -->
+    <div class="container pb-5">
+        
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h4 class="mb-0" id="pageTitle">New Student Entry</h4>
+            <a href="../Student/Index.html" class="btn btn-outline-secondary btn-sm">
+                <i class="bi bi-arrow-left"></i> Back to List
+            </a>
+        </div>
+
+        <form action="../Student/StudentDetails.html" id="studentForm" method="get" novalidate="novalidate">
+            <input id="submitType" name="submitType" type="hidden" value="Final">
+            <input id="StudentId" name="StudentId" type="hidden" value="0">
+            <input id="StudentCode" name="StudentCode" type="hidden" value="">
+
+            <!-- Basic Details Card -->
+            <div class="card">
+                <div class="card-header">
+                    Basic Information
+                </div>
+                <div class="card-body">
+                    <div class="row align-items-start">
+                        <!-- Photo Picker Column -->
+                        <div class="col-md-3 mb-3 text-center border-end">
+                            <label class="form-label d-block text-start small fw-bold text-muted">Student Photo (160x200)</label>
+                            <div class="photo-picker-container mx-auto position-relative" style="width: 160px; height: 200px; background: #f8fafc; border: 2px dashed #e2e8f0; border-radius: 8px; overflow: hidden; cursor: pointer;" onclick="document.getElementById('photoInput').click();">
+                                <img id="photoPreview" src="" alt="" class="w-100 h-100 object-fit-cover d-none">
+                                <div id="photoPlaceholder" class="d-flex flex-column align-items-center justify-content-center h-100 text-muted">
+                                    <i class="bi bi-camera" style="font-size: 2rem;"></i>
+                                    <span class="small">Click to Upload</span>
+                                </div>
+                            </div>
+                            <input type="file" id="photoInput" accept="image/*" class="d-none" onchange="handlePhotoSelect(this)">
+                            <button type="button" class="btn btn-link btn-sm mt-1 text-danger d-none" id="removePhotoBtn" onclick="removePhoto()">Remove Photo</button>
+                        </div>
+                        
+                        <!-- Details Column -->
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label" for="Surname">Surname</label>
+                                    <input class="form-control" id="Surname" name="Surname" type="text" value="" required>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label" for="FirstName">First Name</label>
+                                    <input class="form-control" id="FirstName" name="FirstName" type="text" value="" required>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label" for="MiddleName">Middle Name</label>
+                                    <input class="form-control" id="MiddleName" name="MiddleName" type="text" value="">
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label" for="DateOfBirth">Date of Birth</label>
+                                    <input class="form-control" id="DateOfBirth" name="DateOfBirth" placeholder="dd/mm/yyyy" type="text" value="" required>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label d-block">Gender</label>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" id="genderMale" name="Gender" type="radio" value="1" required>
+                                        <label class="form-check-label" for="genderMale">Male</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" id="genderFemale" name="Gender" type="radio" value="2" required>
+                                        <label class="form-check-label" for="genderFemale">Female</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subject Selection Card -->
+            <div class="card">
+                <div class="card-header">
+                    Subject Selection
+                </div>
+                <div class="card-body">
+                    
+                    <div class="alert alert-light border mb-4">
+                        <strong>Core Subjects:</strong> 
+                        <span class="text-muted">ENGLISH LANGUAGE, SOCIAL STUDIES, RELIGIOUS AND MORAL EDUCATION, MATHEMATICS, SCIENCE, CAREER TECHNOLOGY, CREATIVE ART AND DESIGN</span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <fieldset class="subject-group">
+                                <legend>Elective Options 1</legend>
+                                <div class="mb-2">
+                                    <select class="form-select" id="ElectiveOptions1" name="ElectiveOptions1" required>
+                                        <option value="">-- Select Elective --</option>
+                                        <option value="003">DANGME</option>
+                                        <option value="004">DAGAARE</option>
+                                        <option value="005">DAGBANI</option>
+                                        <option value="006">EWE</option>
+                                        <option value="007">FANTE</option>
+                                        <option value="008">GA</option>
+                                        <option value="009">GONJA</option>
+                                        <option value="010">KASEM</option>
+                                        <option value="011">NZEMA</option>
+                                        <option value="012">AKUAPEM TWI</option>
+                                        <option value="013">ASANTE TWI</option>
+                                    </select>
+                                </div>
+                            </fieldset>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <fieldset class="subject-group">
+                                <legend>Elective Options 2</legend>
+                                <div class="d-flex flex-column gap-2">
+                                    <!-- Subjects Loop 2 -->
+                                    <div class="form-check">
+                                        <input id="SubjectGroups_1__Subjects_0__SubjectCode" name="SubjectGroups[1].Subjects[0].SubjectCode" type="hidden" value="002">
+                                        <input class="form-check-input" id="SubjectGroups_1__Subjects_0__IsSelected" name="SubjectGroups[1].Subjects[0].IsSelected" type="checkbox" value="true">
+                                        <input name="SubjectGroups[1].Subjects[0].IsSelected" type="hidden" value="false">
+                                        <label class="form-check-label" for="SubjectGroups_1__Subjects_0__IsSelected">FRENCH</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input id="SubjectGroups_1__Subjects_1__SubjectCode" name="SubjectGroups[1].Subjects[1].SubjectCode" type="hidden" value="014">
+                                        <input class="form-check-input" id="SubjectGroups_1__Subjects_1__IsSelected" name="SubjectGroups[1].Subjects[1].IsSelected" type="checkbox" value="true">
+                                        <input name="SubjectGroups[1].Subjects[1].IsSelected" type="hidden" value="false">
+                                        <label class="form-check-label" for="SubjectGroups_1__Subjects_1__IsSelected">ARABIC</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input id="SubjectGroups_1__Subjects_2__SubjectCode" name="SubjectGroups[1].Subjects[2].SubjectCode" type="hidden" value="071">
+                                        <input class="form-check-input" id="SubjectGroups_1__Subjects_2__IsSelected" name="SubjectGroups[1].Subjects[2].IsSelected" type="checkbox" value="true">
+                                        <input name="SubjectGroups[1].Subjects[2].IsSelected" type="hidden" value="false">
+                                        <label class="form-check-label" for="SubjectGroups_1__Subjects_2__IsSelected">COMPUTING</label>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-white border-top-0 d-flex justify-content-end py-3">
+                    <a class="btn btn-outline-secondary me-2" href="../Student/Index.html">Cancel</a>
+                    <button type="submit" class="btn btn-primary" id="saveButton" onclick="document.getElementById('submitType').value='Final';">Save Student</button>
+                </div>
+            </div>
+
+        </form>
+        <div class="msg" style="text-align: center; color:gray"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 - Bineys</p>
+            <p>Disclaimer: This page is for testing purposes only. No real data is processed.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js"></script>
+    <script src="db.js"></script>
+    
+    <!-- Placeholder for original scripts if needed for form logic -->
+    <!-- <script src="/Scripts/student-form.js"></script> -->
+    <script>
+        let currentStudent = null;
+        let photoBase64 = null;
+
+        function handlePhotoSelect(input) {
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    photoBase64 = e.target.result;
+                    displayPhoto(photoBase64);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function displayPhoto(base64) {
+            const preview = document.getElementById('photoPreview');
+            const placeholder = document.getElementById('photoPlaceholder');
+            const removeBtn = document.getElementById('removePhotoBtn');
+            
+            if (base64) {
+                preview.src = base64;
+                preview.classList.remove('d-none');
+                placeholder.classList.add('d-none');
+                removeBtn.classList.remove('d-none');
+            } else {
+                preview.src = '';
+                preview.classList.add('d-none');
+                placeholder.classList.remove('d-none');
+                removeBtn.classList.add('d-none');
+            }
+        }
+
+        function removePhoto() {
+            photoBase64 = null;
+            document.getElementById('photoInput').value = '';
+            displayPhoto(null);
+        }
+
+        // Initialize input mask for Date
+        $(document).ready(function(){
+            if(window.Inputmask) {
+                Inputmask("99/99/9999").mask("#DateOfBirth");
+            }
+        });
+
+        // Load Student for Editing if ID is present
+        document.addEventListener('DOMContentLoaded', async function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const studentId = urlParams.get('id');
+
+            if (studentId) {
+                try {
+                    currentStudent = await getStudent(studentId);
+                    if (currentStudent) {
+                        // Switch to Edit Mode
+                        document.getElementById('pageTitle').textContent = 'Edit Student Entry';
+                        document.getElementById('saveButton').textContent = 'Update Student';
+                        
+                        // Populate Form
+                        document.getElementById('Surname').value = currentStudent.surname;
+                        document.getElementById('FirstName').value = currentStudent.firstName;
+                        document.getElementById('MiddleName').value = currentStudent.middleName || '';
+                        document.getElementById('DateOfBirth').value = currentStudent.dob;
+                        
+                        // Populate Photo
+                        if (currentStudent.photo) {
+                            photoBase64 = currentStudent.photo;
+                            displayPhoto(photoBase64);
+                        }
+                        
+                        // Populate Gender
+                        if (currentStudent.gender === 'Male') {
+                            document.getElementById('genderMale').checked = true;
+                        } else {
+                            document.getElementById('genderFemale').checked = true;
+                        }
+
+                        // Populate Subjects
+                        // Dropdown for Elective Options 1
+                        const elective1Select = document.getElementById('ElectiveOptions1');
+                        if (elective1Select) {
+                            Array.from(elective1Select.options).forEach(option => {
+                                if (currentStudent.subjects.includes(option.textContent.trim())) {
+                                    elective1Select.value = option.value;
+                                }
+                            });
+                        }
+
+                        // Checkboxes for others (Elective Options 2)
+                        const allCheckboxes = document.querySelectorAll('input[type="checkbox"][name*="IsSelected"]');
+                        allCheckboxes.forEach(cb => {
+                            const label = document.querySelector(`label[for="${cb.id}"]`);
+                            if (label && currentStudent.subjects.includes(label.textContent.trim())) {
+                                cb.checked = true;
+                            }
+                        });
+                    }
+                } catch (err) {
+                    console.error('Error loading student for edit:', err);
+                }
+            }
+        });
+
+        // Form Submission Logic
+        document.getElementById('studentForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            
+            // Check form validity
+            if (!this.checkValidity()) {
+                this.reportValidity();
+                return;
+            }
+            
+            const formData = new FormData(this);
+            const studentData = {
+                surname: (formData.get('Surname') || '').trim().toUpperCase(),
+                firstName: (formData.get('FirstName') || '').trim().toUpperCase(),
+                middleName: (formData.get('MiddleName') || '').trim().toUpperCase(),
+                dob: formData.get('DateOfBirth'),
+                gender: formData.get('Gender') === '1' ? 'Male' : 'Female',
+                photo: photoBase64,
+                subjects: []
+            };
+
+            // Capture Selected Subjects
+            // From Dropdown (Elective Options 1)
+            const elective1Select = document.getElementById('ElectiveOptions1');
+            if (elective1Select && elective1Select.value) {
+                const selectedText = elective1Select.options[elective1Select.selectedIndex].text;
+                studentData.subjects.push(selectedText);
+            }
+
+            // From Checkboxes (Elective Options 2)
+            const checkboxes = document.querySelectorAll('input[type="checkbox"][name*="IsSelected"]:checked');
+            checkboxes.forEach(cb => {
+                const label = document.querySelector(`label[for="${cb.id}"]`);
+                if (label) {
+                    studentData.subjects.push(label.textContent.trim());
+                }
+            });
+
+            try {
+                let id;
+                if (currentStudent) {
+                    // Update existing student
+                    const updatedStudent = { ...currentStudent, ...studentData };
+                    await updateStudent(updatedStudent);
+                    id = currentStudent.id;
+                    document.querySelector('.msg').textContent = 'Student updated successfully!';
+                } else {
+                    // Add new student
+                    id = await addStudent(studentData);
+                    document.querySelector('.msg').textContent = 'Student saved successfully!';
+                }
+                window.location.href = `StudentDetails.html?id=${id}`;
+            } catch (err) {
+                console.error(err);
+                alert('Error saving student.');
+            }
+        });
+    </script>
+</body>
+</html>
