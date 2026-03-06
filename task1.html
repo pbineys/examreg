@@ -225,7 +225,7 @@
 
 <div class="container">
     <div id="form-content">
-        <h2>Bineys Exam Center Enrollment Form 2026</h2>
+        <h2>Bineys Program Enrollment Form 2026</h2>
         <form id="regForm">
             <div class="form-group">
                 <label for="studentName">Full Name</label>
@@ -246,8 +246,8 @@
             </div>
 
             <div class="form-group">
-                <label for="examCenter">Exam Center (Region)</label>
-                <select id="examCenter" required>
+                <label for="programCenter">Center (Region)</label>
+                <select id="programCenter" required>
                     <option value="">Choose a location...</option>
                     <option value="Ahafo Region">Ahafo Region</option>
                     <option value="Ashanti Region">Ashanti Region</option>
@@ -266,7 +266,7 @@
                     <option value="Western Region">Western Region</option>
                     <option value="Western North Region">Western North Region</option>
                 </select>
-                <p class="error-msg" id="center-error">Please select an exam center.</p>
+                <p class="error-msg" id="programCenter-error">Please select program center.</p>
             </div>
 
             <div class="form-group">
@@ -318,9 +318,9 @@
 
     function submitForm() {
         const nameInput = document.getElementById('studentName');
-        const centerSelect = document.getElementById('examCenter');
+        const centerSelect = document.getElementById('programCenter');
         const nameError = document.getElementById('name-error');
-        const centerError = document.getElementById('center-error');
+        const centerError = document.getElementById('programCenter-error');
 
         const name = nameInput.value.trim();
         const center = centerSelect.value;
